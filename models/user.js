@@ -9,7 +9,7 @@ var UserSchema = new Schema({
 	firstName: String,
 	lastName: String,
 	event: [event.schema],
-	game: [game.Schema]
+	game: [game.schema],
 	profilePic: String,
 	isAttending: Boolean
 });

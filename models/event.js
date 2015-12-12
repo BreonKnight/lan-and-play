@@ -1,15 +1,15 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-var Game = require('/game');
+var Game = require('./game');
 
 var EventSchema = new Schema({
 		title: String,
-		description: String,
-		data: Date,
-		fourtwenty: Boolean,
-		booze: Boolean,
-		food: Boolean,
+		//description: String,
+		date: Date,
+		//fourtwenty: Boolean,
+		//booze: Boolean,
+		//food: Boolean,
 		games: [games],
 		location: String
 });
