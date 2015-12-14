@@ -184,6 +184,7 @@ app.get('/logout', function (req, res) {
   res.redirect('/');
 });
 
+
 //localhost
 app.listen(process.env.PORT || 3000, function () {
 	console.log("You are currently running your server on http://localhost:3000/");

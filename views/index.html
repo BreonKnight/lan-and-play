@@ -24,29 +24,52 @@
 	<nav class="navbar navbar-fixed-top">
 		<div class="container">
 			<form method = "POST" action="/signup" class="form-inline pull-right">
-			  <div class="form-group">
-			    <label for="exampleInputName2">Name</label>
-			    <input type="email" class="form-control" placeholder="Email">
-			  </div>
-			  <div class="form-group">
-			    <label for="exampleInputEmail2">Password</label>
-			    <input type="password" class="form-control" placeholder="Password">
-			  </div>
-			  <button type="submit" class="btn btn-default">Enter</button>
+				<div class="form-group">
+					<label for="exampleInputName2">Name</label>
+					<input type="email" class="form-control" placeholder="Email">
+				</div>
+				<div class="form-group">
+					<label for="exampleInputEmail2">Password</label>
+					<input type="password" class="form-control" placeholder="Password">
+				</div>
+				<div class="checkbox">
+					<label>
+						<input type="checkbox"> Remember Me?
+					</label>
+				</div>
+				<button type="submit" class="btn btn-default">Enter</button>
 			</form>
-		<p>HEY</p>
 		</div>
 	</nav>
 	<div class="jumbotron">
 		<div>
-		<h1>Lan and Play! Get Your Game on <br> <small> Join the community that is everything fun</small> 
-		</h1>
+			<div id="bg">
+				<br>
+				<h1>Lan and Play! Get Your Game on <br> <small> Join the community where you meet new people and have fun gaming</small>
+				</h1>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+			</div>
 		</div>
 	</div>
 	<!-- end of jumbotron -->
-	
 	<div class="container-fluid backgroundI">
+		<div class="row eventsrow">
+			<div class="col-md-12">
+				<div>
+					<h2 class="text-center eventsH1">Current Events</h2>
+				</div>
+		</div>
 		<div class="row">
+			 </div>
 			 <div class="col-xs-6 col-md-4">
 			 	<script id="event-template" type="text/x-handlebars-template">
 			 		{{#each event}}
