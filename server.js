@@ -1,14 +1,7 @@
 /*
-
-	Server Javascript
-
+	Server-side Javascript
 */
 
-/*
-
-	Server Requirements
-
-*/
 var db = require('./models');
 var User = require('./models/user');
 var express = require('express'),
@@ -18,16 +11,17 @@ var express = require('express'),
 	bodyParser = require('body-parser'),
 //including mongoose
 	mongoose = require('mongoose'),
+	hbs = require('hbs'),
 //including Login Dependencies 
 	cookieParser = require('cookie-parser'),
 	session = require('express-session'),
 	passport = require('passport'),
 	LocalStrategy = require('passport-local').Strategy;
+
 /*
-
 	Middleware
-
 */
+
 // middleware for authorizing logins
 app.use(cookieParser());
 app.use(session({

@@ -1,3 +1,12 @@
+/**{
+	max-width: 100%;
+	min-height: 100%;
+}*/
+
+body{
+	background-color: #00CCDC;
+}
+
 @font-face {
 	font-family: 'Mission-Gothic';
 	src: url('/fonts/');
@@ -7,7 +16,6 @@
 .jumbotron{
 	color: white;
 	min-height: 600px;
-/*	opacity: .6;*/
 	background-repeat: no-repeat;
     background-size: cover;
     overflow: hidden;
@@ -15,31 +23,13 @@
     background-color: #0CF3C4;
 }
 
-/*#bg{
-	background: url('https://s-media-cache-ak0.pinimg.com/originals/6b/cd/da/6bcdda7580dca0a22b58798847f1918c.jpg');
-	background-repeat: no-repeat;
-	background-size: cover;
-	opacity: .8;
-
-}*/
-
-/*#bg {
-	-webkit-filter: grayscale(1);
-	filter: grayscale(1);
-}*/
-
-
 .jumbotron div small{
 	color: white;
-/*	-webkit-filter: grayscale(0);
-	filter: grayscale(0);*/
 }
 
 .jumbotron div h1{
 	text-align: center;
 	color: #00A3F6;
-/*	-webkit-filter: grayscale(0);
-	filter: grayscale(0);*/
 }
 
 .headercolor{
@@ -48,8 +38,8 @@
 
 .navbar{
 	background-color: #0CF3C4;
-	padding-top: 5px;
 	color: white;
+	padding-top: 5px;
 
 }
 
@@ -57,26 +47,26 @@
 	background-color: white;
 }
 
-.footer{
-	position: absolute;
-    width: 100%;
-    height: 60px;
-    background-color: #0CA5F3;
-}
-
 .eventsrow{
 	background-color: #0CF3C4;
 }
-.eventsH1{
+.eventsH{
+
 	background-color: #0CF3C4;
 	color:white;
 }
 
-body{
-	background-color: #00CCDC;
-}
 
 .footer p{
 	color: white; 
 
+}
+.footer{
+    width: 100%;
+    height: 60px;
+    background-color: #0CA5F3;
+    position: absolute;
+	width: 100%;
+    overflow: hidden;
+    padding:10px 0px;	
 }
