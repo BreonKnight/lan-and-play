@@ -47,8 +47,14 @@
 	
 	<div class="container-fluid backgroundI">
 		<div class="row">
-			
-			</div>
+			 <div class="col-xs-6 col-md-4">
+			 	<script id="event-template" type="text/x-handlebars-template">
+			 		{{#each event}}
+			 			<div> <p><strong>{{title}} by {{event.[0].title}}</p> <br>
+			 			<p><strong>{{date}} on {{event.[1].date}}</p> <br>
+			 			<p><strong>{{location}} at {{event.[3].location}}</p></div>
+			 	</script>
+			 </div>
 		</div>
 	</div>
 	<footer class="footer">
