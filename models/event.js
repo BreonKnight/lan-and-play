@@ -5,12 +5,12 @@ var Game = require('./game');
 
 var EventSchema = new Schema({
 		title: String,
-		//description: String,
+		description: String,
 		date: Date,
 		//fourtwenty: Boolean,
 		//booze: Boolean,
 		//food: Boolean,
-		games: [games],
+		games: [Game.schema],
 		location: String
 });
 

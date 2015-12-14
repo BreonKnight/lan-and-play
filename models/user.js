@@ -1,5 +1,6 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
+var passportLocalMongoose = require('passport-local-mongoose');
 
 var Game = require('./game');
 var Event = require('./event');
@@ -8,12 +9,13 @@ var UserSchema = new Schema({
 	userName: String,
 	firstName: String,
 	lastName: String,
-	event: [event.schema],
-	game: [game.schema],
+	events: [Event.schema],
+	game: [Game.schema],
 	profilePic: String,
 	isAttending: Boolean
 });
 
-var User = mongoose.model('User', UserSchema);
+UserSchema.plugin(passportLocalMongoose);
 
-model.exports = User;
+var User = mongoose.model('User', UserSchema);
+module.exports = User;
