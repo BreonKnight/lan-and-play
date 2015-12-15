@@ -129,6 +129,14 @@ app.delete('/api/events/:id', function deleteEvent(req, res) {
 	});
 });
 
+//Updating an event
+app.get('api/events/:id', function updateEvent(req, res) {
+	console.log("requested item for updating is" + req.params.id);
+	db.Event.findOneAndUpdate({_id: req.params.id}, function eventUpdate(err, eventz) {
+		res.json(eventz);
+	});
+});
+
 /*
 
 Routes for Games
