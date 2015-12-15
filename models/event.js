@@ -7,9 +7,6 @@ var EventSchema = new Schema({
 		title: String,
 		description: String,
 		date: Date,
-		//fourtwenty: Boolean,
-		//booze: Boolean,
-		//food: Boolean,
 		games: [Game.schema],
 		location: String
 });
