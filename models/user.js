@@ -7,6 +7,7 @@ var Event = require('./event');
 
 var UserSchema = new Schema({
 	userName: String,
+	password: String,
 	// firstName: String,
 	// lastName: String,
 	events: [Event.schema],
