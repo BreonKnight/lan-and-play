@@ -2,122 +2,122 @@
 $(function() {
 
   // base API route
-  var baseUrl = '/api/posts';
+  var baseUrl = '/api/events';
 
-  // array to hold post data from API
-  var allPosts = [];
+  // array to hold event data from API
+  var allEvents = [];
 
-  // element to display list of posts
-  var $postsList = $('#posts-list');
+  // element to display list of events
+  var $eventsList = $('#events-list');
 
-  // form to create new post
-  var $createpost = $('#create-post');
+  // form to create new event
+  var $createEvent = $('#create-event');
 
   // compile handlebars template
-  var source = $('#posts-template').html();
+  var source = $('#events-template').html();
   var template = Handlebars.compile(source);
 
-  // helper function to render all posts to view
-  // note: we empty and re-render the collection each time our post data changes
+  // helper function to render all events to view
+  // note: we empty and re-render the collection each time our event data changes
   var render = function() {
-    // empty existing posts from view
-    $postsList.empty();
+    // empty existing events from view
+    $eventsList.empty();
 
-    // pass `allPosts` into the template function
-    var postsHtml = template({ posts: allPosts });
+    // pass `allEvents` into the template function
+    var eventsHtml = template({ events: allEvents });
 
     // append html to the view
-    $postsList.append(postsHtml);
+    $eventsList.append(eventsHtml);
   };
 
-  // GET all posts on page load
+  // GET all events on page load
   $.get(baseUrl, function (data) {
     console.log(data);
 
-    // set `allPosts` to post data from API
-    allPosts = data.posts;
+    // set `allEvents` to event data from API
+    allEvents = data.events;
 
-    // render all posts to view
+    // render all events to view
     render();
   });
 
   // listen for submit even on form
-  $createpost.on('submit', function (event) {
+  $createEvent.on('submit', function (event) {
     event.preventDefault();
 
     // serialze form data
-    var newpost = $(this).serialize();
+    var newevent = $(this).serialize();
 
-    // POST request to create new post
-    $.post(baseUrl, newpost, function (data) {
+    // event request to create new event
+    $.event(baseUrl, newevent, function (data) {
       console.log(data);
 
-      // add new post to `allPosts`
-      allPosts.push(data);
+      // add new event to `allEvents`
+      allEvents.push(data);
 
-      // render all posts to view
+      // render all events to view
       render();
     });
 
     // reset the form
-    $createpost[0].reset();
-    $createpost.find('input').first().focus();
+    $createEvent[0].reset();
+    $createEvent.find('input').first().focus();
   });
 
-  // add event-handlers to posts for updating/deleting
-  $postsList
+  // add event-handlers to events for updating/deleting
+  $eventsList
 
-    // for update: submit event on `.update-post` form
-    .on('submit', '.update-post', function (event) {
+    // for update: submit event on `.update-event` form
+    .on('submit', '.update-event', function (event) {
       event.preventDefault();
       
-      // find the post's id (stored in HTML as `data-id`)
-      var postId = $(this).closest('.post').attr('data-id');
+      // find the event's id (stored in HTML as `data-id`)
+      var eventId = $(this).closest('.event').attr('data-id');
 
-      // find the post to update by its id
-      var postToUpdate = allPosts.filter(function (post) {
-        return post._id == postId;
+      // find the event to update by its id
+      var eventToUpdate = allEvents.filter(function (event) {
+        return event._id == eventId;
       })[0];
 
       // serialze form data
-      var updatedpost = $(this).serialize();
+      var updatedevent = $(this).serialize();
 
-      // PUT request to update post
+      // PUT request to update event
       $.ajax({
         type: 'PUT',
-        url: baseUrl + '/' + postId,
-        data: updatedpost,
+        url: baseUrl + '/' + eventId,
+        data: updatedevent,
         success: function(data) {
-          // replace post to update with newly updated version (data)
-          allPosts.splice(allPosts.indexOf(postToUpdate), 1, data);
+          // replace event to update with newly updated version (data)
+          allEvents.splice(allEvents.indexOf(eventToUpdate), 1, data);
 
-          // render all posts to view
+          // render all events to view
           render();
         }
       });
     })
     
-    // for delete: click event on `.delete-post` button
-    .on('click', '.delete-post', function (event) {
+    // for delete: click event on `.delete-event` button
+    .on('click', '.delete-event', function (event) {
       event.preventDefault();
 
-      // find the post's id (stored in HTML as `data-id`)
-      var postId = $(this).closest('.post').attr('data-id');
+      // find the event's id (stored in HTML as `data-id`)
+      var eventId = $(this).closest('.event').attr('data-id');
 
-      // find the post to delete by its id
-      var postToDelete = allPosts.filter(function (post) {
-        return post._id == postId;
+      // find the event to delete by its id
+      var eventToDelete = allEvents.filter(function (event) {
+        return event._id == eventId;
       })[0];
 
-      // DELETE request to delete post
+      // DELETE request to delete event
       $.ajax({
         type: 'DELETE',
-        url: baseUrl + '/' + postId,
+        url: baseUrl + '/' + eventId,
         success: function(data) {
-          // remove deleted post from all posts
-          allPosts.splice(allPosts.indexOf(postToDelete), 1);
+          // remove deleted event from all events
+          allEvents.splice(allEvents.indexOf(eventToDelete), 1);
 
-          // render all posts to view
+          // render all events to view
           render();
         }
       });

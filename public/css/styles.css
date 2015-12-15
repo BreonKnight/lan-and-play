@@ -9,7 +9,7 @@ body{
 
 @font-face {
 	font-family: 'Mission-Gothic';
-	src: url('../fonts/MissionGothicRegular') format("opentype");
+	src: url('./fonts/MissionGothicRegular') format("opentype");
 }
 
 @font-face{
@@ -28,6 +28,7 @@ p{
 	font-family: 'PT Serif', serif;
 
 }
+
 
 .navbar-brand{
 	padding: 0 0 0 10px;
