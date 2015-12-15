@@ -7,12 +7,12 @@ var Event = require('./event');
 
 var UserSchema = new Schema({
 	userName: String,
-	firstName: String,
-	lastName: String,
+	// firstName: String,
+	// lastName: String,
 	events: [Event.schema],
-	game: [Game.schema],
-	profilePic: String,
-	isAttending: Boolean
+	game: [Game.schema]
+	// profilePic: String,
+	// isAttending: Boolean
 });
 
 UserSchema.plugin(passportLocalMongoose);

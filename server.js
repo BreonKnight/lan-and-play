@@ -22,6 +22,9 @@ var express = require('express'),
 	Middleware
 */
 
+//including middlware
+app.use(bodyParser.urlencoded({ extended: true}));
+
 // middleware for authorizing logins
 app.use(cookieParser());
 app.use(session({
@@ -37,16 +40,23 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-//including middlware
-app.use(bodyParser.urlencoded({ extended: true}));
-
 //servering static files from public folder directory 
 app.use(express.static(__dirname + '/public'));
 
-//Getting Homepage in views folder
-app.get('/', function homepage(req, res) {
-  res.sendFile(__dirname + '/views/index.html');
+app.set('view engine', 'hbs');
+hbs.registerPartials(__dirname + '/views/partials');
+
+// connect to mongodb
+// mongoose.connect('mongodb://localhost/lanandplaytest');
+
+app.get('/', function (req, res) {
+  res.render('index', { user: req.user });
 });
+
+//Getting Homepage in views folder
+// app.get('/', function homepage(req, res) {
+//   res.sendFile(__dirname + '/views/index.html');
+// });
 
 //JSON API inputs
 app.get('/api', function api_index(req, res) {
@@ -147,36 +157,63 @@ Routes for User
 Routes for User Login 
 */
 
+// show signup view
 app.get('/signup', function (req, res) {
-  res.render('signup');
+  // if user is logged in, don't let them see signup view
+  if (req.user) {
+    res.redirect('/profile');
+  } else {
+    res.render('signup', { user: req.user });
+  }
 });
 
 // sign up new user, then log them in
 // hashes and salts password, saves new user to db
-
 app.post('/signup', function (req, res) {
-  User.register(new User({ username: req.body.username }), req.body.password,
-    function (err, newUser) {
-      passport.authenticate('local')(req, res, function() {
-        // res.send('signed up!!!');
-        res.redirect('/profile')
-      });
-    }
-  );
+  // if user is logged in, don't let them sign up again
+  if (req.user) {
+    res.redirect('/profile');
+  } else {
+    User.register(new User({ username: req.body.username }), req.body.password,
+      function (err, newUser) {
+        passport.authenticate('local')(req, res, function () {
+          res.redirect('/profile');
+        });
+      }
+    );
+  }
+});
+
+// show login view
+app.get('/login', function (req, res) {
+  // if user is logged in, don't let them see login view
+  if (req.user) {
+    res.redirect('/profile');
+  } else {
+    res.render('login', { user: req.user });
+  }
 });
 
 // log in user
 app.post('/login', passport.authenticate('local'), function (req, res) {
-  // res.send('logged in!!!');
-  res.redirect('/profile')
+  res.redirect('/profile');
 });
 
-//how to logout
+// log out user
 app.get('/logout', function (req, res) {
   req.logout();
   res.redirect('/');
 });
 
+// show user profile page
+app.get('/profile', function (req, res) {
+  // only show profile if user is logged in
+  if (req.user) {
+    res.render('profile', { user: req.user });
+  } else {
+    res.redirect('/login');
+  }
+});
 
 //localhost
 app.listen(process.env.PORT || 3000, function () {
