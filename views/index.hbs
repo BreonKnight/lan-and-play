@@ -1,3 +1,6 @@
+
+{{> header}}
+<!-- header -->
 		<div class="jumbotron">
 			<div class="container">
 				<div class="row" id="bg">
@@ -37,12 +40,14 @@ Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Nullam id dolor id
 		<div class="container">
 			<div class="row">
 				 <div class="col-xs-6 col-md-4">
-				 	<script id="event-template" type="text/x-handlebars-template">
-				 		{{#each event}}
-				 			<div> <p><strong>{{title}} by {{event.[0].title}}</p> <br>
-				 			<p><strong>{{date}} on {{event.[1].date}}</p> <br>
-				 			<p><strong>{{location}} at {{event.[3].location}}</p></div>
-				 	</script>
+				 	<ul class="event-group id="post-list">
+						<script id="event-template" type="text/x-handlebars-template">
+							\{{#each event}}
+								<div><p><strong>\{{title}}</p> <br>
+								<p><strong>\{{date}}</p> <br>
+								<p><strong>\{{location}}</p></div>
+						</script>
+					</ul>
 				 </div>
 			</div>
 		</div>

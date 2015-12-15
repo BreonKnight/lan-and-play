@@ -139,15 +139,15 @@ app.post('/api/games', function createGames(req, res) {
 });
 
 /*
-
 Routes for User
-
 */
+
 
 
 /*
 Routes for User Login 
 */
+
 app.get('/signup', function (req, res) {
   res.render('signup');
 });
