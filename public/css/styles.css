@@ -12,13 +12,13 @@ body{
 	src: url('../fonts/MissionGothicRegular') format("opentype");
 }
 
-@-font-face{
+@font-face{
 	font-family: 'Mission-Gothic';
 	font-weight: bold;
 	src: url('../fonts/MissionGothicBold') format("opentype");
 }
 
-@-font-face{
+@font-face{
 	font-family: 'Mission-Gothic';
 	font-weight: thin;
 	src: url('../fonts/MissionGothicThin') format("opentype");
