@@ -1,10 +1,10 @@
-// wait for DOM to load before running JS
+
 $(function() {
 
-  // base API event route
-  var baseUrl = '/api/events';
 
-  // array to hold event data from API
+  var apiUrl = '/api/events';
+
+  // array to hold events
   var allEvents = [];
 
   // element to display list of events
@@ -17,21 +17,19 @@ $(function() {
   var source = $('#events-template').html();
   var template = Handlebars.compile(source);
 
-  // helper function to render all events to view
-  // note: we empty and re-render the collection each time our event data changes
   var render = function() {
-    // empty existing events from view
+
     $eventsList.empty();
 
-    // pass `allEvents` into the template function
+    // pass all the events into the template function
     var eventsHtml = template({ events: allEvents });
 
-    // append html to the view
-    $eventsList.append(eventsHtml);
+    // prepend html to the view
+    $eventsList.prepend(eventsHtml);
   };
 
   // GET all events on page load
-  $.get(baseUrl, function (data) {
+  $.get(apiUrl, function (data) {
     console.log(data);
 
     // set `allEvents` to event data from API
@@ -47,10 +45,10 @@ $(function() {
 
     // serialze form data
     var newevent = $(this).serialize();
-    console.log(newevent);
+    console.log("This is the new event", newevent);
 
     // event request to create new event
-    $.post(baseUrl, newevent, function (data) {
+    $.post(apiUrl, newevent, function (data) {
       console.log(data);
 
       // add new event to `allEvents`
@@ -86,7 +84,7 @@ $(function() {
       // PUT request to update event
       $.ajax({
         type: 'PUT',
-        url: baseUrl + '/' + eventId,
+        url: apiUrl + '/' + eventId,
         data: updatedevent,
         success: function(data) {
           // replace event to update with newly updated version (data)
@@ -98,7 +96,6 @@ $(function() {
       });
     })
     
-    // for delete: click event on `.delete-event` button
     .on('click', '.delete-event', function (event) {
       event.preventDefault();
 
@@ -113,7 +110,7 @@ $(function() {
       // DELETE request to delete event
       $.ajax({
         type: 'DELETE',
-        url: baseUrl + '/' + eventId,
+        url: apiUrl + '/' + eventId,
         success: function(data) {
           // remove deleted event from all events
           allEvents.splice(allEvents.indexOf(eventToDelete), 1);

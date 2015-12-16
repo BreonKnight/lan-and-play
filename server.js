@@ -87,28 +87,54 @@ app.post('/api/events', function createEvent(req, res) {
 	//get all games seperated by commas and remove the commas
 	// var games = req.body.games.split(',').map(function (item) { return item.trim(); });
 	// req.body.games = games;
-
-	db.Event.create(req.body, function creatingEvent(err, eventz) {
-		if (err) {console.log('creating event error', err); }
-		console.log(eventz);
-		res.json(eventz);
+	var newEvent =  new db.Event(req.body);
+	newEvent.save(function (err, savedEvent) {
+		if (err) {
+			res.status(500).json({error : err.message});
+		} else {
+			req.user.events.push(savedEvent);
+			req.user.save();
+			res.json(savedEvent);
+		}
 	});
 });
 
-// app.post('/api/users/:userId/events', function create(req, res) {
-// 	console.log('body', req.body);
-// 	db.User.findOne({_id: req.params.userId}, function createEventUser(err, user){
-// 		if (err) {console.log('has an error', err); }
-// 		var eventz = new db.Event(req.body);
-// 		user.events.push(eventz);
+app.delete('/api/users/:userId/events/eventId', function create(req, res) {
+	console.log('body', req.body);
+	db.User.findOne({_id: req.params.userId}, function createEventUser(err, user){
+		if (err) {console.log('has an error', err); }
+		var eventz = new db.Event(req.body);
+		user.events.push(eventz);
 
-// 		user.save(function (err, savedUser) {
-// 			if (err) {console.log('err', err); }
-// 			console.log('this user saved this event', savedUser);
-// 			res.json(user.events);
-// 		});
-// 	});
-// });
+		user.save(function (err, savedUser) {
+			if (err) {console.log('err', err); }
+			console.log('this user saved this event', savedUser);
+			res.json(user.events);
+		});
+	});
+});
+
+app.put('/api/events/:id', function editEvent(req, res){
+
+	//requesting the id within my html
+	var eventId = req.params.id;
+	db.Event.findOne({_id: req.params.id}, function eventEdit(err, foundEvent){
+		if (err) {
+			res.status(500).json({ error: err.message });
+		} else {
+			foundEvent.title = req.body.title;
+			foundEvent.description = req.body.description;
+			foundEvent.date = req.body.date;
+			foundEvent.location = req.body.location;
+
+			foundEvent.save(function savingEdit(err, savedEvent){
+				if(err) {
+					res.status(500).json
+				}
+			})
+		}
+	})
+})
 
 app.get('/api/events/:id', function eventShow(req, res) {
 	console.log('this albums id is =', req.params.id);
@@ -117,7 +143,7 @@ app.get('/api/events/:id', function eventShow(req, res) {
 	});
 });
 
-//Adding new Game to Event
+//Adding new Game to Event based off of the event ID
 app.post('/api/events/:eventId/games', function gamesCreate(req, res) {
 	console.log('req this', req.body);
 	db.Event.findOne({_id: req.params.eventId}, function createEventGame(err, eventz) {
@@ -137,7 +163,8 @@ app.post('/api/events/:eventId/games', function gamesCreate(req, res) {
 
 app.delete('/api/events/:id', function deleteEvent(req, res) {
 	console.log('Requested event for deletion is ' + req.params.id);
-	db.Event.remove({_id: req.params.id}, function (err) {
+
+	db.Event.findOneAndRemove({_id: req.params.id}, function (err) {
 		if (err) {return console.log('error in deleting event', err); }
 		console.log('Removal of event with the ID =' + req.params.id + 'was successful!');
 		res.status(200).send();

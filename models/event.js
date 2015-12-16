@@ -6,8 +6,9 @@ var Game = require('./game');
 var EventSchema = new Schema({
 		title: String,
 		description: String,
-		date: Date,
+		date: String,
 		games: [Game.schema],
+		time: String,
 		location: String
 });
 
