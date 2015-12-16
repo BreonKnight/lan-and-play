@@ -1,7 +1,7 @@
 // wait for DOM to load before running JS
 $(function() {
 
-  // base API route
+  // base API event route
   var baseUrl = '/api/events';
 
   // array to hold event data from API
@@ -35,7 +35,7 @@ $(function() {
     console.log(data);
 
     // set `allEvents` to event data from API
-    allEvents = data.events;
+    allEvents = data;
 
     // render all events to view
     render();
@@ -47,13 +47,14 @@ $(function() {
 
     // serialze form data
     var newevent = $(this).serialize();
+    console.log(newevent);
 
     // event request to create new event
-    $.event(baseUrl, newevent, function (data) {
+    $.post(baseUrl, newevent, function (data) {
       console.log(data);
 
       // add new event to `allEvents`
-      allEvents.push(data);
+      allEvents.push({data});
 
       // render all events to view
       render();

@@ -19,32 +19,33 @@
           </h1>
         </div>
       </div>
-    </div>
+    </div> 
   </div>
   <!-- page content -->
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        
+        {{#if user}}
         <!-- new event form-->
-        <form class="form-inline" id="create-event">
-          <div class="form-group">
-            <input type="text" name="title" class="form-control" placeholder="Title" autofocus>
-          </div>
-          <div class="form-group">
-            <input type="text" name="description" class="form-control" placeholder="Description">
-          </div>
-          <div class="form-group">
-            <input type=date step=7 min=2014-09-08>
-          </div>
-          <div class="form-group">
-            <input type="text" name="location" class="form-control" placeholder="location" autofocus>
-          </div>
-          <div class="form-group">
-            <input type="submit" class="btn btn-default" value="Add event">
-          </div>
-        </form>
-        <br>
+          <form class="form-inline" id="create-event">
+            <div class="form-group">
+              <input type="text" name="title" class="form-control" placeholder="Title" autofocus>
+            </div>
+            <div class="form-group">
+              <input type="text" name="description" class="form-control" placeholder="Description">
+            </div>
+            <div class="form-group">
+              <input type=date>
+            </div>
+            <div class="form-group">
+              <input type="text" name="location" class="form-control" placeholder="location" autofocus>
+            </div>
+            <div class="form-group">
+              <input type="submit" class="btn btn-default" value="Add event">
+            </div>
+          </form>
+          <br>
+        {{/if}}
         <!-- list of events -->
         <ul class="list-group" id="events-list">
           

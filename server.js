@@ -81,12 +81,12 @@ app.get('/api/events', function eventsIndex(req, res) {
 	});
 });
 
-app.post('api/events', function createEvent(req, res) {
+app.post('/api/events', function createEvent(req, res) {
 	console.log('this event', req.body);
 
 	//get all games seperated by commas and remove the commas
-	var games = req.body.games.split(',').map(function (item) { return item.trim(); });
-	req.body.games = games;
+	// var games = req.body.games.split(',').map(function (item) { return item.trim(); });
+	// req.body.games = games;
 
 	db.Event.create(req.body, function creatingEvent(err, eventz) {
 		if (err) {console.log('creating event error', err); }
@@ -94,6 +94,21 @@ app.post('api/events', function createEvent(req, res) {
 		res.json(eventz);
 	});
 });
+
+// app.post('/api/users/:userId/events', function create(req, res) {
+// 	console.log('body', req.body);
+// 	db.User.findOne({_id: req.params.userId}, function createEventUser(err, user){
+// 		if (err) {console.log('has an error', err); }
+// 		var eventz = new db.Event(req.body);
+// 		user.events.push(eventz);
+
+// 		user.save(function (err, savedUser) {
+// 			if (err) {console.log('err', err); }
+// 			console.log('this user saved this event', savedUser);
+// 			res.json(user.events);
+// 		});
+// 	});
+// });
 
 app.get('/api/events/:id', function eventShow(req, res) {
 	console.log('this albums id is =', req.params.id);
