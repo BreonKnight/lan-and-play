@@ -32,7 +32,7 @@ $(function() {
   $.get(apiUrl, function (data) {
     console.log(data);
 
-    // set `allEvents` to event data from API
+    // set allEvents to event data from API
     allEvents = data;
 
     // render all events to view
@@ -64,7 +64,7 @@ $(function() {
   // add event-handlers to events for updating/deleting
   $eventsList
 
-    // for update: submit event on `.update-event` form
+    // for update: submit event on .update-event
     .on('submit', '.update-event', function (event) {
       event.preventDefault();
       
@@ -85,7 +85,7 @@ $(function() {
         url: apiUrl + '/' + eventId,
         data: updatedevent,
         success: function(data) {
-          // replace event to update with newly updated version (data)
+          
           allEvents.splice(allEvents.indexOf(eventToUpdate), 1, data);
 
           // render all events to view
@@ -97,7 +97,7 @@ $(function() {
     .on('click', '.delete-event', function (event) {
       event.preventDefault();
 
-      // find the event's id (stored in HTML as `data-id`)
+      // find the event's id
       var eventId = $(this).closest('.event').attr('data-id');
 
       // find the event to delete by its id
@@ -105,7 +105,7 @@ $(function() {
         return event._id == eventId;
       })[0];
 
-      // DELETE request to delete event
+      //request an event to be deleted
       $.ajax({
         type: 'DELETE',
         url: apiUrl + '/' + eventId,
@@ -118,5 +118,20 @@ $(function() {
         }
       });
     });
+
+      // $eventsList.on('click', '.delete-event', function (event){
+      //   event.preventDefault();
+
+      //   var userEvent = $(this).closest('.event').attr('data-id');
+
+      //   var eventToDelete = allEvents.filter(function (event) {
+      //     return event._id == userEvent;
+      //   })[0];
+
+      //   $.ajax({
+      //     type: 'Delete',
+      //     url: apiUrl + '/' + userId + "/" 
+      //   })
+      // });
 
 });
