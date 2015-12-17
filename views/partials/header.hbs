@@ -30,9 +30,11 @@
 				<div>
 					<ul class="float-right">
 						{{#if user}}
+						<!-- if user is loggedin show profile and log out -->
 						<li><a href="/profile">Profile</a></li>
 						<li><a href="/logout">Log Out</a></li>
 						{{else}}
+						<!-- else show signup and login -->
 						<li><a href="/signup">Sign Up</a></li>
 						<li><a href="/login">Log In</a></li>
 						{{/if}}
