@@ -1,7 +1,5 @@
 /*
-
 Requirements for Database to run
-
 */
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/lanandplaytest');
@@ -30,8 +28,6 @@ games: [fakeGame1, fakeGame2, fakeGame3]};
 var fakeUser2 = {userName: 'key', password: 'op',
 events: [fakeEvent1], games: [fakeGame2]};
 
-
-
 // Game.create(fakeGame1, function (err, Game) {
 // 	if(err) {console.log(err); }
 // 	console.log(Game);
@@ -59,4 +55,3 @@ events: [fakeEvent1], games: [fakeGame2]};
 // 	console.log(User);
 
 // });
-
