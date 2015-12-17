@@ -176,10 +176,10 @@ app.delete('/api/events/:id', function deleteEvent(req, res) {
 });
 
 //Deleting ID by user inside profile page
-app.delete('/api/users/:userId/events/:eventID', function deletePostbyUser(req, res) {
-	var userId = req.params.userId;
+app.delete('/api/profile/:eventID', function deletePostbyUser(req, res) {
+	var profileId = req.params.userId;
 	var eventId = req.params.id;
-		User.findOne({_id: userId}, function findTheUse(err, user) {
+		User.findOne({_id: profileId}, function findTheUse(err, user) {
 		if (err)	{console.log('my error', err); }
 
 		var foundEvent = user.event.id(eventId);

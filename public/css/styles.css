@@ -146,6 +146,7 @@ img.eventpic{
 	background-color: #0CF3C4;
 	color: white;
 	padding-top: 5px;
+	display: inline;
 
 }
 
@@ -192,5 +193,4 @@ img.eventpic{
 	height: 70px;
 	background-color: #0CA5F3;
 	color:white;
-	position: fixed;
 }
