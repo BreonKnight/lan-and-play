@@ -8,14 +8,14 @@ body{
 }
 
 @font-face {
-	font-family: 'Mission-Gothic';
+	font-family:'Mission-Gothic';
 	src: url('./fonts/MissionGothicRegular') format("opentype");
 }
 
 @font-face{
 	font-family: 'Mission-Gothic';
 	font-weight: bold;
-	src: url('../fonts/MissionGothicBold') format("opentype");
+	src: url('./fonts/MissionGothicBold') format("opentype");
 }
 
 @font-face{
