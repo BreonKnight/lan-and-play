@@ -1,5 +1,7 @@
 var mongoose = require("mongoose");
-	mongoose.connect("mongodb://localhost/lanandplaytest");
+	mongoose.connect( process.env.MONGOLAB_URI ||
+					  process.env.MONGOHQ_URL || 
+					   "mongodb://localhost/lanandplaytest");
 var Event = require('./event');
 var Game = require('./game');
 var User = require('./user');
