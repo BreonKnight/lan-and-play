@@ -100,8 +100,15 @@ app.post('/api/events', function createEvent(req, res) {
 			res.status(500).json({error : err.message});
 		} else {
 			req.user.events.push(savedEvent);
-			req.user.save();
-			res.json(savedEvent);
+			req.user.save(function(err){
+        // http://mongoosejs.com/docs/api.html#model_Model-save
+        // Saving is asynchronous! We need to wait for confirmation before responding.
+        if (err) {
+          res.status(500).json({error : err.message});
+        } else {
+          res.json(savedEvent);
+        }
+      });
 		}
 	});
 });
