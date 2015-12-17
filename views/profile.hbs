@@ -1,6 +1,5 @@
 {{> header}}
   <div class="container profcolor">
-
     <div class="row text-center">
       <div class="col-md-6 col-md-offset-3">
         <br>
@@ -8,7 +7,6 @@
         <br>
         <h1>Hey, {{user.username}}</h1>
         <h2>Welcome Back <i class="fa fa-smile-o"></i> </h2>
-        <p>This is your profile page.</p>
         {{#each user.events}}
           <div class="userEvents">
           <h3 class="userEventTitle">{{title}}</h3>
@@ -22,9 +20,9 @@
     </div>
   </div>
 
-  <div class="navbar navbar-fixed-bottom profnav">
+<!--   <div class="navbar navbar-fixed-bottom profnav">
       <p> Lan And Play by Breon Knight all rights reserved. Game on!</p>
-  </div>
+  </div> -->
   <!-- jquery -->
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 

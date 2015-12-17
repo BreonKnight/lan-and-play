@@ -7,9 +7,10 @@ var EventSchema = new Schema({
 		title: String,
 		description: String,
 		date: String,
-		games: [Game.schema],
+		// games: [Game.schema],
 		time: String,
-		location: String
+		location: String,
+		picture: String
 });
 
 var Event = mongoose.model('Event', EventSchema);

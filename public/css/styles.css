@@ -41,7 +41,7 @@ h4 small{
 .event{
 	border: 2px solid white;
 	background: #00F4C3;
-	margin: 10px;
+	margin: 5px auto;
 	display: inline-block;
 	max-width: 100%;
 }
@@ -96,6 +96,7 @@ p strong.userEvents{
 	color:white;
 	border: 1px solid black;
 	background-color: #00A3F6;
+	padding: 10px;
 }
 
 .navbar-brand{
@@ -176,4 +177,5 @@ p strong.userEvents{
 	height: 70px;
 	background-color: #0CA5F3;
 	color:white;
+	position: fixed;
 }

@@ -50,15 +50,13 @@ $(function() {
     // event request to create new event
     $.post(apiUrl, newevent, function (data) {
       console.log(data);
-
-      // add new event to `allEvents`
-      allEvents.push({data});
+      // add new event to allEvents
+      allEvents.push(data);
 
       // render all events to view
       render();
     });
 
-    // reset the form
     $createEvent[0].reset();
     $createEvent.find('input').first().focus();
   });

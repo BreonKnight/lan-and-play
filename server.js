@@ -46,17 +46,11 @@ app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'hbs');
 hbs.registerPartials(__dirname + '/views/partials');
 
-// connect to mongodb
-// mongoose.connect('mongodb://localhost/lanandplaytest');
-
+//getting user
 app.get('/', function (req, res) {
   res.render('index', { user: req.user });
 });
 
-//Getting Homepage in views folder
-// app.get('/', function homepage(req, res) {
-//   res.sendFile(__dirname + '/views/index.html');
-// });
 
 //JSON API inputs
 app.get('/api', function api_index(req, res) {
@@ -69,21 +63,34 @@ app.get('/api', function api_index(req, res) {
 		]
 	});
 });
-//routes
+/*
+
+		Routes for Lan And Play
+
+*/
+
 /*
 
 Routes for Events
 
 */
 app.get('/api/events', function eventsIndex(req, res) {
+	console.log(db.Event);
 	db.Event.find({}, function (err, events) {
 		res.json(events);
 	});
 });
 
-app.post('/api/events', function createEvent(req, res) {
-	console.log('this event', req.body);
+// app.get('api/events/:id', function updateEvent(req, res) {
+// 	console.log("requested item for updating is" + req.params.id);
+// 	db.Event.findOneAndUpdate({_id: req.params.id}, function eventUpdate(err, eventz) {
+// 		res.json(eventz);
+// 		res.redirect('/');
+// 	});
+// });
 
+
+app.post('/api/events', function createEvent(req, res) {
 	//get all games seperated by commas and remove the commas
 	// var games = req.body.games.split(',').map(function (item) { return item.trim(); });
 	// req.body.games = games;
@@ -99,47 +106,44 @@ app.post('/api/events', function createEvent(req, res) {
 	});
 });
 
-app.delete('/api/users/:userId/events/eventId', function create(req, res) {
-	console.log('body', req.body);
-	db.User.findOne({_id: req.params.userId}, function createEventUser(err, user){
-		if (err) {console.log('has an error', err); }
-		var eventz = new db.Event(req.body);
-		user.events.push(eventz);
+// app.post('/api/users/:userId/events', function create(req, res) {
+// 	console.log('body', req.body);
+// 	db.User.findOne({_id: req.params.userId}, function createEventUser(err, user){
+// 		if (err) {console.log('has an error', err); }
+// 		var eventz = new db.Event(req.body);
+// 		user.events.push(eventz);
 
-		user.save(function (err, savedUser) {
-			if (err) {console.log('err', err); }
-			console.log('this user saved this event', savedUser);
-			res.json(user.events);
-		});
-	});
-});
+// 		user.save(function (err, savedUser) {
+// 			if (err) {console.log('err', err); }
+// 			console.log('this user saved this event', savedUser);
+// 			res.json(user.events);
+// 		});
+// 	});
+// });
 
-app.put('/api/events/:id', function editEvent(req, res){
 
+//Editing Event by ID
+app.put('/api/events/:id', function editEvent(req, res) {
 	//requesting the id within my html
 	var eventId = req.params.id;
-	db.Event.findOne({_id: req.params.id}, function eventEdit(err, foundEvent){
+	db.Event.findOne({_id: req.params.id}, function eventEdit(err, foundEvent) {
 		if (err) {
 			res.status(500).json({ error: err.message });
 		} else {
 			foundEvent.title = req.body.title;
 			foundEvent.description = req.body.description;
 			foundEvent.date = req.body.date;
+			foundEvent.time = req.body.time;
 			foundEvent.location = req.body.location;
 
-			foundEvent.save(function savingEdit(err, savedEvent){
-				if(err) {
-					res.status(500).json
+			foundEvent.save(function savingEdit(err, savedEvent) {
+				if (err) {
+					res.status(500).json('error', err);
+				} else {
+					res.json(savedEvent);
 				}
-			})
+			});
 		}
-	})
-})
-
-app.get('/api/events/:id', function eventShow(req, res) {
-	console.log('this albums id is =', req.params.id);
-	db.Event.findOne({_id: req.params.id}, function getEventId(err, eventz) {
-		res.json(eventz);
 	});
 });
 
@@ -171,15 +175,23 @@ app.delete('/api/events/:id', function deleteEvent(req, res) {
 	});
 });
 
-//Updating an event
+//Deleting ID by user inside profile page
+app.delete('/api/users/:userId/events/:eventID', function deletePostbyUser(req, res) {
+	var userId = req.params.userId;
+	var eventId = req.params.id;
+		User.findOne({_id: userId}, function findTheUse(err, user) {
+		if (err)	{console.log('my error', err); }
 
-app.get('api/events/:id', function updateEvent(req, res) {
-	console.log("requested item for updating is" + req.params.id);
-	db.Event.findOneAndUpdate({_id: req.params.id}, function eventUpdate(err, eventz) {
-		res.json(eventz);
-		res.redirect('/');
+		var foundEvent = user.event.id(eventId);
+		foundEvent.remove();
+
+		user.save(function updatingUser(err, savedUser) {
+			if (err) {console.log('updating user events err', err); }
+			res.json(savedUser);
+		});
 	});
 });
+
 
 /*
 
@@ -199,11 +211,6 @@ app.post('/api/games', function createGames(req, res) {
 		res.json(games);
 	});
 });
-
-/*
-Routes for User
-*/
-
 
 /*
 Routes for User Login 
