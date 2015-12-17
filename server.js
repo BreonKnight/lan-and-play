@@ -133,24 +133,14 @@ app.post('/api/events', function createEvent(req, res) {
 app.put('/api/events/:id', function editEvent(req, res) {
 	//requesting the id within my html
 	var eventId = req.params.id;
-	db.Event.findOne({_id: req.params.id}, function eventEdit(err, foundEvent) {
+
+  // http://mongoosejs.com/docs/api.html#model_Model.findByIdAndUpdate
+	db.Event.findByIdAndUpdate(req.params.id, req.body, function (err, updatedEvent) {
 		if (err) {
 			res.status(500).json({ error: err.message });
 		} else {
-			foundEvent.title = req.body.title;
-			foundEvent.description = req.body.description;
-			foundEvent.date = req.body.date;
-			foundEvent.time = req.body.time;
-			foundEvent.location = req.body.location;
-
-			foundEvent.save(function savingEdit(err, savedEvent) {
-				if (err) {
-					res.status(500).json('error', err);
-				} else {
-					res.json(savedEvent);
-				}
-			});
-		}
+			res.json(updatedEvent);
+		});
 	});
 });
 
