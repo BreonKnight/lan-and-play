@@ -1,13 +1,7 @@
 /*
 Requirements for Database to run
 */
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/lanandplaytest');
-
-var Event = require('./models/event.js');
-var Game = require('./models/game.js');
-var User = require('./models/user.js');
-var User2 = require('./models/user.js');
+var db = require("./models");
 
 var fakeGame1 = {title: 'Super Smash Bros. Melee', console:
 'GameCube', maxPlayer: '4'};
@@ -28,29 +22,29 @@ games: [fakeGame1, fakeGame2, fakeGame3]};
 var fakeUser2 = {userName: 'key', password: 'op',
 events: [fakeEvent1], games: [fakeGame2]};
 
-// Game.create(fakeGame1, function (err, Game) {
+// db.Game.create(fakeGame1, function (err, Game) {
 // 	if(err) {console.log(err); }
 // 	console.log(Game);
 // });
 
-// Game.create(fakeGame2, function (err, Game) {
+// db.Game.create(fakeGame2, function (err, Game) {
 // 	if(err) {console.log(err); }
 // 	console.log(Game);
 // });
 
-// Game.create(fakeGame3, function (err, Game) {
+// db.Game.create(fakeGame3, function (err, Game) {
 // 	if(err) {console.log(err); }
 // 	console.log(Game);
 // 	process.exit();
 // });
 
-// Event.create(fakeEvent1, function (err, Event) {
+// db.Event.create(fakeEvent1, function (err, Event) {
 // 	if(err) {console.log(err); }
 // 	console.log(Event);
 // 	process.exit();
 // });
 
-// User2.create(fakeUser2, function (err, User){
+// db.User.create(fakeUser2, function (err, User){
 // 	if (err)	{console.log(err); }
 // 	console.log(User);
 

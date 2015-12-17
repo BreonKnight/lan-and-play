@@ -3,7 +3,7 @@
 */
 
 var db = require('./models');
-var User = require('./models/user');
+
 var express = require('express'),
 	app = express(),
 
@@ -36,11 +36,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // passport config
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.use(new LocalStrategy(db.User.authenticate()));
+passport.serializeUser(db.User.serializeUser());
+passport.deserializeUser(db.User.deserializeUser());
 
-//servering static files from public folder directory 
+//servering static files from public folder directory
 app.use(express.static(__dirname + '/public'));
 
 app.set('view engine', 'hbs');
@@ -179,7 +179,7 @@ app.delete('/api/events/:id', function deleteEvent(req, res) {
 app.delete('/api/profile/:eventID', function deletePostbyUser(req, res) {
 	var profileId = req.params.userId;
 	var eventId = req.params.id;
-		User.findOne({_id: profileId}, function findTheUse(err, user) {
+		db.User.findOne({_id: profileId}, function findTheUse(err, user) {
 		if (err)	{console.log('my error', err); }
 
 		var foundEvent = user.event.id(eventId);
@@ -233,7 +233,7 @@ app.post('/signup', function (req, res) {
   if (req.user) {
     res.redirect('/profile');
   } else {
-    User.register(new User({ username: req.body.username }), req.body.password,
+    db.User.register(new User({ username: req.body.username }), req.body.password,
       function (err, newUser) {
         passport.authenticate('local')(req, res, function () {
           res.redirect('/profile');
