@@ -71,4 +71,41 @@ POST      |/login                    |Allows User to login into their account.
 GET       |/logout                   |Allows User to logout their account.
 GET       |/profile                  |Allows User to go to thier profile page.
 
+Challenges
+==
+I ran into a couple of walls during this project and it was mostly because of how I had my entire application dependent upon having a user based system to create data. Looking at alot of examples helped me alot instead of struggling through this project blind. Passport was the answer to what I needed partically because it offered safe password storage.
+
+Code snippit im really proud of in this project is
+
+        {{#if user}}
+        <!-- new event form-->
+          <h1 class="text-center h1isWhite cvent">Create An Event</h1>
+
+            <form class="form-group formWrap" id="create-event">
+              <div class="form-group">
+                <input type="text" name="title" class="form-control" placeholder="Title" autofocus>
+              </div>
+              <div class="form-group">
+                <input type="text" name="description" class="form-control" placeholder="Description">
+              </div>
+              <div class="form-group">
+                <input type="text" name="date" class="form-control" placeholder="Date: mon/day/year" autofocus>
+              </div>
+              <div class="form-group">
+                <input type="text" name="time" class="form-control" placeholder="Time: example 10:00 pm" autofocus>
+              </div>
+              <div class="form-group">
+                <input type="text" name="location" class="form-control" placeholder="location" autofocus>
+              </div>
+              <div class="form-group">
+                <input type="text" name="picture" class="form-control" placeholder="insert pic URL" autofocus>
+              </div>
+              <div class="form-group">
+                <input type="submit" class="btn btn-default" value="Add event">
+              </div>
+            </form>
+          <br>
+
+Basically I used handlebars to toggle the form to be viewed only when the user was logged in. It was so simple but I was SUPPPPER pumped about this! I'm so excited to learn more
+
 
