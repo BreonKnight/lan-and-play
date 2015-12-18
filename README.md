@@ -75,7 +75,7 @@ Challenges
 ==
 I ran into a couple of walls during this project and it was mostly because of how I had my entire application dependent upon having a user based system to create data. Looking at alot of examples helped me alot instead of struggling through this project blind. Passport was the answer to what I needed partically because it offered safe password storage.
 
-Code snippit im really proud of in this project is
+Code snippit im really proud of in this project below
 
         {{#if user}}
         <!-- new event form-->
