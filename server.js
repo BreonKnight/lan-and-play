@@ -1,12 +1,10 @@
 /*
 	Server-side Javascript
 */
-
 var db = require('./models');
 var User = require('./models/user');
 var express = require('express'),
 	app = express(),
-
 //including body parser
 	bodyParser = require('body-parser'),
 //including mongoose
@@ -17,7 +15,6 @@ var express = require('express'),
 	session = require('express-session'),
 	passport = require('passport'),
 	LocalStrategy = require('passport-local').Strategy;
-
 /*
 	Middleware
 */
@@ -51,9 +48,8 @@ app.get('/', function (req, res) {
   res.render('index', { user: req.user });
 });
 
-
 //JSON API inputs
-app.get('/api', function api_index(req, res) {
+app.get('/api', function apiIndex(req, res) {
 	res.json({
 		message: 'Welcome to Lan And Plays API :) !',
 		documentationUrl: 'https://github.com/breonknight/lan-and-play',
@@ -64,15 +60,11 @@ app.get('/api', function api_index(req, res) {
 	});
 });
 /*
-
 		Routes for Lan And Play
-
 */
 
 /*
-
 Routes for Events
-
 */
 app.get('/api/events', function eventsIndex(req, res) {
 	console.log(db.Event);
@@ -80,15 +72,6 @@ app.get('/api/events', function eventsIndex(req, res) {
 		res.json(events);
 	});
 });
-
-// app.get('api/events/:id', function updateEvent(req, res) {
-// 	console.log("requested item for updating is" + req.params.id);
-// 	db.Event.findOneAndUpdate({_id: req.params.id}, function eventUpdate(err, eventz) {
-// 		res.json(eventz);
-// 		res.redirect('/');
-// 	});
-// });
-
 
 app.post('/api/events', function createEvent(req, res) {
 	//get all games seperated by commas and remove the commas
@@ -105,21 +88,6 @@ app.post('/api/events', function createEvent(req, res) {
 		}
 	});
 });
-
-// app.post('/api/users/:userId/events', function create(req, res) {
-// 	console.log('body', req.body);
-// 	db.User.findOne({_id: req.params.userId}, function createEventUser(err, user){
-// 		if (err) {console.log('has an error', err); }
-// 		var eventz = new db.Event(req.body);
-// 		user.events.push(eventz);
-
-// 		user.save(function (err, savedUser) {
-// 			if (err) {console.log('err', err); }
-// 			console.log('this user saved this event', savedUser);
-// 			res.json(user.events);
-// 		});
-// 	});
-// });
 
 
 //Editing Event by ID

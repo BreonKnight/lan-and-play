@@ -119,19 +119,5 @@ $(function() {
       });
     });
 
-      // $eventsList.on('click', '.delete-event', function (event){
-      //   event.preventDefault();
-
-      //   var userEvent = $(this).closest('.event').attr('data-id');
-
-      //   var eventToDelete = allEvents.filter(function (event) {
-      //     return event._id == userEvent;
-      //   })[0];
-
-      //   $.ajax({
-      //     type: 'Delete',
-      //     url: apiUrl + '/' + userId + "/" 
-      //   })
-      // });
 
 });
