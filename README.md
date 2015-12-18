@@ -31,7 +31,24 @@ This is how events are published
 ![image](http://i.imgur.com/Mh1pPuA.png?1)
 
 ___
+Model Data
+==
+Model  | Datatype| name| usage
+------------|-------------|-----------|-----------
+Event     |String|title |Events title
+Event     |String| description		   |Events description
+Event    |String|	date	   |Events Date
+Event	    |String	   |	time	   | The Events Time
+Event     |String|location |Events Location
+Event     |String| picture		   |Events Picture
+Game    |String|	title	   |Games title
+Game	    |String	   |	console	   | The console the Game is on
+User    |String|	userName	   |Get the username
+User	    |Array	   |	events	   | an array of Events the user created
+User	    |Array	   |	games	   | an array of Games the user created
 
+
+_____
 You only are able to create events upon registration. So make sure you register!
 
 Restful Routes
