@@ -2,7 +2,7 @@
 	Server-side Javascript
 */
 var db = require('./models');
-var User = require('./models/user');
+
 var express = require('express'),
 	app = express(),
 //including body parser
@@ -33,11 +33,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // passport config
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.use(new LocalStrategy(db.User.authenticate()));
+passport.serializeUser(db.User.serializeUser());
+passport.deserializeUser(db.User.deserializeUser());
 
-//servering static files from public folder directory 
+//servering static files from public folder directory
 app.use(express.static(__dirname + '/public'));
 
 app.set('view engine', 'hbs');
@@ -83,8 +83,15 @@ app.post('/api/events', function createEvent(req, res) {
 			res.status(500).json({error : err.message});
 		} else {
 			req.user.events.push(savedEvent);
-			req.user.save();
-			res.json(savedEvent);
+			req.user.save(function(err){
+        // http://mongoosejs.com/docs/api.html#model_Model-save
+        // Saving is asynchronous! We need to wait for confirmation before responding.
+        if (err) {
+          res.status(500).json({error : err.message});
+        } else {
+          res.json(savedEvent);
+        }
+      });
 		}
 	});
 });
@@ -94,24 +101,14 @@ app.post('/api/events', function createEvent(req, res) {
 app.put('/api/events/:id', function editEvent(req, res) {
 	//requesting the id within my html
 	var eventId = req.params.id;
-	db.Event.findOne({_id: req.params.id}, function eventEdit(err, foundEvent) {
+
+  // http://mongoosejs.com/docs/api.html#model_Model.findByIdAndUpdate
+	db.Event.findByIdAndUpdate(req.params.id, req.body, function (err, updatedEvent) {
 		if (err) {
 			res.status(500).json({ error: err.message });
 		} else {
-			foundEvent.title = req.body.title;
-			foundEvent.description = req.body.description;
-			foundEvent.date = req.body.date;
-			foundEvent.time = req.body.time;
-			foundEvent.location = req.body.location;
-
-			foundEvent.save(function savingEdit(err, savedEvent) {
-				if (err) {
-					res.status(500).json('error', err);
-				} else {
-					res.json(savedEvent);
-				}
-			});
-		}
+			res.json(updatedEvent);
+		});
 	});
 });
 
@@ -147,7 +144,7 @@ app.delete('/api/events/:id', function deleteEvent(req, res) {
 app.delete('/api/profile/:eventID', function deletePostbyUser(req, res) {
 	var profileId = req.params.userId;
 	var eventId = req.params.id;
-		User.findOne({_id: profileId}, function findTheUse(err, user) {
+		db.User.findOne({_id: profileId}, function findTheUse(err, user) {
 		if (err)	{console.log('my error', err); }
 
 		var foundEvent = user.event.id(eventId);
@@ -201,7 +198,7 @@ app.post('/signup', function (req, res) {
   if (req.user) {
     res.redirect('/profile');
   } else {
-    User.register(new User({ username: req.body.username }), req.body.password,
+    db.User.register(new User({ username: req.body.username }), req.body.password,
       function (err, newUser) {
         passport.authenticate('local')(req, res, function () {
           res.redirect('/profile');
